@@ -10,7 +10,7 @@ Board::Board(unsigned int w, unsigned h) : w(w), h(h){
     for(unsigned int a = 0; a < w; a++){
         std::vector<Block*> column = {};
         for(unsigned int b = 0; b < h; b++){
-            column.push_back(new Block);
+            column.push_back(NULL);
         }
         board.push_back(column);
     }
@@ -159,5 +159,38 @@ void Board::moveRight(unsigned int x, unsigned int y) {
     }
     if (!collision){
         board[w-1][y] = block;
+    }
+}
+
+bool Board::validGameState() {
+    for(int a = 0; a  < w; a++){
+        for(int b = 0; b < h; b++){
+            if (board[a][b] == NULL)
+                return true;
+        }
+    }
+    return false;
+}
+
+void Board::addNewBlock() {
+    if (validGameState()){
+        std::vector<std::pair<unsigned int, unsigned int>> emptySquares = {};
+        for(int a = 0; a < w; a++){
+            for(int b = 0; b < h; b++){
+                if (board[a][b] == NULL)
+                    emptySquares.push_back(std::make_pair(a,b));
+            }
+        }
+        std::pair<unsigned int, unsigned int > randCoord = emptySquares[rand()%emptySquares.size()];
+        board[randCoord.first][randCoord.second] = new Block;
+    }
+}
+
+Block *Board::operator()(unsigned int w, unsigned int h) {
+    if (w < this->w && h < this->h){
+        return this->board[w][h];
+    }
+    else{
+        return nullptr;
     }
 }

@@ -44,6 +44,13 @@ public:
     //Moves the block at (x,y) rightwards
     void moveRight(unsigned int x, unsigned int y);
 
+    //if all squares are occupied, the game is over
+    bool validGameState();
+
+    void addNewBlock();
+
+    Block* operator()(unsigned int w, unsigned int h);
+
 };
 
 std::ostream& operator<<(std::ostream& stream, Board& board);

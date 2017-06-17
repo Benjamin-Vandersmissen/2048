@@ -1,11 +1,9 @@
 #include <iostream>
 #include "Board.h"
-
+#include "GameWindow.h"
+#include "FL/Fl.H"
 
 int main() {
-    Board b(4,4);
-    std::cerr << b << std::endl;
-    b.moveRight();
-    std::cerr << b << std::endl;
-    return 0;
+    GameWindow* win = new GameWindow(400, 400, 4, 4,"Game");
+    return Fl::run();
 }
